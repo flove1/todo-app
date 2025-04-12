@@ -14,10 +14,6 @@ const swaggerDefinition = {
       url: "http://localhost:3000/api",
       description: "Development server",
     },
-    {
-      url: "https://todo-app-nextjs-stack.vercel.app/api",
-      description: "Production server",
-    },
   ],
   components: {
     schemas: {
