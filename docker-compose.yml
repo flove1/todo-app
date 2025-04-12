@@ -1,16 +1,16 @@
-version: '3.8'
-
 services:
-  app:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    container_name: nextjs-todo-app
+  mongo:
+    image: mongo
+    container_name: adb-mongo
+    restart: always
     ports:
-      - "3000:3000"
+      - 27017:27017
     environment:
-      - NODE_ENV=production
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: password
     volumes:
-      - ./:/app
-      - /app/node_modules
-    restart: unless-stopped
+      - mongo-data:/data
+volumes:
+  redis-data:
+  mongo-data:
+  neo4j-data:
