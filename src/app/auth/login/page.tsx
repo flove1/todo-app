@@ -282,7 +282,7 @@ export default function Login() {
           <Toolbar>
             <Typography variant="h6" sx={{ flexGrow: 1 }}>
               <Link href="/" style={{ color: "#fff", textDecoration: "none" }}>
-                The NextJS ToDo App
+                Case Study ToDo App
               </Link>
             </Typography>
 
@@ -558,8 +558,7 @@ export default function Login() {
           }}
         >
           <Typography variant="body2">
-            &copy; {new Date().getFullYear()} NextJS ToDo App. All Rights
-            Reserved.
+            &copy; {new Date().getFullYear()} Software Development Case Study
           </Typography>
         </Box>
       </div>
