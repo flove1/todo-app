@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { MongoClient } from "mongodb";
+import bcrypt from "bcrypt";
 
 interface User {
   username: string;
@@ -45,8 +46,12 @@ export async function POST(request: Request) {
       );
     }
 
-    // Create a new user
-    const newUser = { username, password }; // Note: Password is not hashed (not secure)
+    // Hash the password
+    const saltRounds = 10; // Recommended salt rounds
+    const hashedPassword = await bcrypt.hash(password, saltRounds);
+
+    // Create a new user with the hashed password
+    const newUser = { username, password: hashedPassword };
     const result = await usersCollection.insertOne(newUser);
 
     if (result.acknowledged) {

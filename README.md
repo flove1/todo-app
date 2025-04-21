@@ -47,12 +47,6 @@ This project shows the power of **Next.js** and serves as a practical demonstrat
 - Easy-to-understand file structure and codebase
 - Customizable with additional features and improvements
 
-## 🚀 **Live Deployment**
-
-The application is deployed live on **Vercel**. You can access it at [https://todo-app-nextjs-stack.vercel.app/](https://todo-app-nextjs-stack.vercel.app/landing).
-
-The app features a landing page, authentication (login, register, and forgot password), a to-do list, and a Swagger API documentation page, as well as real-time to-do updates using WebSockets.
-
 ## 🖼️ **UI Preview**
 
 ### **Landing Page**
@@ -411,8 +405,6 @@ This project includes a `Dockerfile` for containerization. To build the Docker i
 ```bash
 docker compose up --build
 ```
-
-This command will build the Docker image and start the container. The application will be accessible at `http://localhost:3000`.
 
 ## 🔧 **Contributing**
 

@@ -3,7 +3,6 @@ import { MongoClient } from "mongodb";
 
 // MongoDB Configuration
 const uri = process.env.MONGO_DB_URI || "";
-const client = new MongoClient(uri);
 const dbName = "todo-nextjs-app";
 const collectionName = "todos";
 
@@ -23,6 +22,7 @@ interface UserDocument {
 // POST: Add a new todo
 export async function POST(request: Request) {
   const { userId, task, category, completed } = await request.json();
+  const client = new MongoClient(uri);
 
   if (!userId || !task) {
     return NextResponse.json(
@@ -69,6 +69,7 @@ export async function GET(request: Request) {
   }
 
   try {
+    const client = new MongoClient(uri);
     await client.connect();
     const db = client.db(dbName);
     const usersCollection = db.collection<UserDocument>(collectionName);
@@ -97,6 +98,7 @@ export async function PATCH(request: Request) {
   }
 
   try {
+    const client = new MongoClient(uri);
     await client.connect();
     const db = client.db(dbName);
     const usersCollection = db.collection<UserDocument>(collectionName);
@@ -131,6 +133,7 @@ export async function DELETE(request: Request) {
   }
 
   try {
+    const client = new MongoClient(uri);
     await client.connect();
     const db = client.db(dbName);
     const usersCollection = db.collection<UserDocument>(collectionName);

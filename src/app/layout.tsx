@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import { Analytics } from "@vercel/analytics/react";
 import localFont from "next/font/local";
 import "./globals.css";
+import AppLayout from "./shared/components/Layout";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -15,8 +15,8 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "The Next.js ToDo App",
-  description: "A simple todo app built with Next.js",
+  title: "ToDo App - Next.js Fullstack",
+  description: "A case study ToDo application built with Next.js, MongoDB, and Material UI.",
 };
 
 export default function RootLayout({
@@ -31,10 +31,7 @@ export default function RootLayout({
         <link rel="apple-touch-icon" href="/android-chrome-192x192.png" />
         <link rel="manifest" href="/manifest.json" />
         <meta name="theme-color" content="#006400" />
-        <meta
-          name="description"
-          content="A simple todo app built with Next.js"
-        />
+        <meta name="description" content="A simple todo app built with Next.js" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>The Next.js ToDo App - Stay Organized with ToDo Lists</title>
         <meta name="author" content="Son Nguyen" />
@@ -44,27 +41,17 @@ export default function RootLayout({
         <meta name="twitter:card" content="summary" />
         <meta name="twitter:site" content="@nextjstodoapp" />
         <meta name="twitter:title" content="The Next.js ToDo App" />
-        <meta
-          name="twitter:description"
-          content="A simple todo app built with Next.js"
-        />
+        <meta name="twitter:description" content="A simple todo app built with Next.js" />
         <meta property="og:title" content="The Next.js ToDo App" />
-        <meta
-          property="og:description"
-          content="A simple todo app built with Next.js"
-        />
+        <meta property="og:description" content="A simple todo app built with Next.js" />
         <meta property="og:type" content="website" />
-        <meta
-          property="og:url"
-          content="https://todo-app-nextjs-stack.vercel.app/"
-        />
+        <meta property="og:url" content="https://todo-app-nextjs-stack.vercel.app/" />
         <meta property="og:image" content="/android-chrome-512x512.png" />
         <meta property="og:site_name" content="The Next.js ToDo App" />
         <meta property="og:locale" content="en_US" />
       </head>
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <Analytics />
-        {children}
+      <body>
+        <AppLayout>{children}</AppLayout> {/* Wrap children with AppLayout */}
       </body>
     </html>
   );
