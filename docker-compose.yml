@@ -10,6 +10,19 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: password
     volumes:
       - mongo-data:/data
+
+  app:
+    build: .
+    image: flove86/todo:latest
+    container_name: todo-app-nextjs
+    restart: always
+    ports:
+      - 3000:3000
+    environment:
+      MONGO_DB_URI: mongodb://admin:password@mongo:27017
+    depends_on:
+      - mongo
+
 volumes:
   redis-data:
   mongo-data:
