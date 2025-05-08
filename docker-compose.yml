@@ -30,8 +30,6 @@ services:
         condition: on-failure
       placement:
         constraints: [node.hostname == worker-1]
-    env_file:
-      - .env
     networks:
       - app-network
 
