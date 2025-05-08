@@ -8,6 +8,8 @@ WORKDIR /app
 COPY package.json package-lock.json ./
 RUN npm install --frozen-lockfile
 
+ENV MONGO_DB_URI=mongodb://admin:password@localhost:27017
+
 # Copy the rest of the application code
 COPY . .
 
