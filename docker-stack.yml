@@ -8,6 +8,8 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: password
     volumes:
       - mongo-data:/data/db
+    networks:
+      - app-network
     deploy:
       replicas: 1
       restart_policy:
@@ -17,14 +19,15 @@ services:
           - node.labels.role == mongo
 
   app:
-    build: .
-    image: todo:latest         # local tag
+    image: ghcr.io/flove1/todo:latest
     environment:
       MONGO_DB_URI: mongodb://admin:password@mongo:27017
     depends_on:
       - mongo
     ports:
       - "3000:3000"
+    networks:
+      - app-network
     deploy:
       replicas: 1
       restart_policy:
