@@ -7,26 +7,30 @@ on:
     branches: [ "master" ]
 
 jobs:
-  build-and-deploy:
-    runs-on: [ self-hosted, linux ]
-
+  build:
+    runs-on: self-hosted
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
+      - uses: docker/setup-buildx-action@v3
 
-      - name: Build & load fullstack image locally
+      - name: Build & load full-stack image
         uses: docker/build-push-action@v4
         with:
           context: .
           file: Dockerfile
-          push: false       # do not push to any registry
-          load: true        # load into local Docker
+          push: false
+          load: true            # loads into local Docker on worker-2
           tags: todo:latest
 
-      - name: Deploy stack to Docker Swarm
+  deploy:
+    name: Deploy from manager
+    needs: build
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Deploy stack to Swarm
         run: |
           docker stack deploy \
             -c docker-stack.yml \

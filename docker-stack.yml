@@ -3,44 +3,35 @@ version: "3.8"
 services:
   mongo:
     image: mongo:latest
-    container_name: adb-mongo
-    restart: always
-    ports:
-      - 27017:27017
     environment:
       MONGO_INITDB_ROOT_USERNAME: admin
       MONGO_INITDB_ROOT_PASSWORD: password
     volumes:
-      - mongo-data:/data
+      - mongo-data:/data/db
     deploy:
       replicas: 1
       restart_policy:
         condition: on-failure
       placement:
         constraints:
-          - node.role == manager
-    networks:
-      - app-network
+          - node.labels.role == mongo
 
   app:
-    image: todo:latest        # local tag
-    container_name: todo-app-nextjs
-    restart: always
-    ports:
-      - 3000:3000
+    build: .
+    image: todo:latest         # local tag
     environment:
       MONGO_DB_URI: mongodb://admin:password@mongo:27017
     depends_on:
       - mongo
+    ports:
+      - "3000:3000"
     deploy:
       replicas: 1
       restart_policy:
         condition: on-failure
       placement:
         constraints:
-          - node.role == manager  # ensures it runs where the image was loaded
-    networks:
-      - app-network
+          - node.labels.role == app
 
 networks:
   app-network:
@@ -48,5 +39,3 @@ networks:
 
 volumes:
   mongo-data:
-  redis-data:
-  neo4j-data:
