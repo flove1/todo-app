@@ -1,43 +1,31 @@
-# .github/workflows/deploy.yml
 name: CI/CD Pipeline
 
 on:
   push:
-    branches: [ "master" ]
-  pull_request:
-    branches: [ "master" ]
+    branches: [ main ]
 
 jobs:
   build-and-deploy:
-    environment:
-      name: prod
-    runs-on: self-hosted
+    runs-on: [ self-hosted, linux ]
+
     steps:
-      - name: Checkout repository
+      - name: Checkout code
         uses: actions/checkout@v4
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
+      - name: Build & load fullstack image locally
+        uses: docker/build-push-action@v4
         with:
-          node-version: 18
-          cache: 'npm'
+          context: .
+          file: Dockerfile
+          push: false       # do not push to any registry
+          load: true        # load into local Docker
+          tags: todo:latest
 
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Start services with docker-compose
-        run: docker-compose up -d --build
-
-      # Optionally, run tests inside the container (adjust service name as needed)
-      # - name: Run tests in container
-      #   run: docker-compose exec <service-name> npm run test
-
-      # - name: Stop services
-      #   run: docker-compose down
-
-      # Uncomment and configure the following step for deployment (e.g., push to registry, remote deploy, etc.)
-      # - name: Deploy
-      #   run: echo "Add your deployment script here"
+      - name: Deploy stack to Docker Swarm
+        run: |
+          docker stack deploy \
+            -c docker-stack.yml \
+            todo_stack
