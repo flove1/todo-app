@@ -36,6 +36,7 @@ jobs:
             -Dsonar.exclusions=**/test/**,**/*.test.*,**/*.spec.*
             -Dsonar.issue.ignore.multicriteria=e1
             -Dsonar.issue.ignore.multicriteria.e1.severity=INFO,MINOR
+            -Dsonar.issue.ignore.multicriteria.e1.filePattern=**
           projectBaseDir: .
       - name: Fetch SonarCloud issues and create findings file
         env:
