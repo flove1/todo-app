@@ -9,6 +9,10 @@ on:
   workflow_dispatch:
   push:
     branches: [ "master" ]
+    paths-ignore:
+      - .github/workflows/sonarcloud.yml
+      - .github/workflows/semgrep.yml
+      - .github/workflows/dast.yml
   pull_request:
     branches: [ "master" ]
     paths-ignore:
