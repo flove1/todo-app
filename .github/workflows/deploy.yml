@@ -42,7 +42,7 @@ jobs:
 
   build:
     name: build image
-    needs: [ semgrep, analysis ]
+    needs: [ semgrep, sonarcloud ]
     runs-on: ubuntu-sonarcloud
 
     steps:
