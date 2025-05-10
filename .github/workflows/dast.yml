@@ -4,7 +4,7 @@ permissions:
   contents: write
   issues: write
   pull-requests: write
-  actions: read
+  actions: write
 
 on:
   workflow_dispatch:
@@ -30,7 +30,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
       - name: Run OWASP ZAP Baseline Scan
-        uses: zaproxy/action-baseline@v0.10.0
+        uses: zaproxy/action-baseline@v0.14.0
         with:
           target: "http://localhost:3000"
           artifact_name: zap_scan
