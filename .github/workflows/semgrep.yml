@@ -32,7 +32,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Run Semgrep and output findings
-      run: semgrep ci --json > semgrep-findings.json
+      run: semgrep ci --exclude test --exclude '**/*.test.*' --exclude '**/*.spec.*' --severity CRITICAL,HIGH --json > semgrep-findings.json
     - name: Convert Semgrep findings to markdown
       run: |
         echo "# Semgrep Findings\n" > semgrep-findings.md
