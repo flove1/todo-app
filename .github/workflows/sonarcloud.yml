@@ -34,9 +34,6 @@ jobs:
             -Dsonar.organization=flove1
             -Dsonar.sources=src
             -Dsonar.exclusions=**/test/**,**/*.test.*,**/*.spec.*
-            -Dsonar.issue.ignore.multicriteria=e1
-            -Dsonar.issue.ignore.multicriteria.e1.severity=INFO,MINOR
-            -Dsonar.issue.ignore.multicriteria.e1.filePattern=**/*
           projectBaseDir: .
       - name: Fetch SonarCloud issues and create findings file
         env:
@@ -45,7 +42,7 @@ jobs:
           PROJECT_KEY="flove1_todo-app"
           ORGANIZATION="flove1"
           # Fetch issues from SonarCloud API
-          curl -s -u $SONAR_TOKEN: "https://sonarcloud.io/api/issues/search?componentKeys=$PROJECT_KEY&resolved=false" > sonarcloud-issues.json
+          curl -s -u $SONAR_TOKEN: "https://sonarcloud.io/api/issues/search?componentKeys=$PROJECT_KEY&resolved=false&severities=MAJOR" > sonarcloud-issues.json
           # Format a simple markdown summary (customize as needed)
           echo "# SonarCloud Findings\n" > sonarcloud-findings.md
           jq -r '.issues[] | "- [\(.severity)] \(.message) (\(.component):\(.line))"' sonarcloud-issues.json >> sonarcloud-findings.md
