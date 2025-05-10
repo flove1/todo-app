@@ -2,8 +2,8 @@ name: CI/CD
 
 permissions:
   contents: read
-  packages: write
   pull-requests: read
+  issues: write
 
 on:
   workflow_dispatch:

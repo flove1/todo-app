@@ -1,5 +1,9 @@
 name: semgrep
 
+permissions:
+  contents: read
+  issues: write
+
 on:
   workflow_dispatch:
   workflow_run:
