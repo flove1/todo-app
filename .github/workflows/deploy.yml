@@ -11,6 +11,19 @@ on:
     branches: [ "master" ]
 
 jobs:
+  semgrep:
+    name: semgrep/ci
+    runs-on: self-hosted
+    permissions:
+      contents: read
+    env:
+      SEMGREP_APP_TOKEN: ${{ secrets.SEMGREP_APP_TOKEN }}
+    container:
+      image: semgrep/semgrep
+    steps:
+    - uses: actions/checkout@v4
+    - run: semgrep ci
+
   build:
     name: Build & Push Docker Image
     needs: semgrep
