@@ -22,8 +22,7 @@ on:
     - cron: '0 0 * * *'
 
 jobs:
-  DAST:
-    name: owasp
+  owasp:
     runs-on: self-hosted
     steps:
       - name: Checkout repository
