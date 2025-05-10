@@ -30,4 +30,5 @@ jobs:
           args:
             -Dsonar.projectKey=flove1_todo-app
             -Dsonar.organization=flove1
+            -Dsonar.sources=src
           projectBaseDir: .
