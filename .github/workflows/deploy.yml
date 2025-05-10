@@ -43,7 +43,7 @@ jobs:
   build:
     name: build image
     needs: [ semgrep, analysis ]
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-sonarcloud
 
     steps:
       - name: Checkout repository
