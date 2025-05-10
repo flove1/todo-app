@@ -24,7 +24,7 @@ on:
 jobs:
   build:
     name: build image
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
 
     steps:
       - name: Checkout repository
