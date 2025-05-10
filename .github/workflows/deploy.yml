@@ -36,7 +36,7 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         with:
           args:
-            -Dsonar.projectKey=todo-app
+            -Dsonar.projectKey=flove1_todo-app
             -Dsonar.organization=flove1
           projectBaseDir: .
 
