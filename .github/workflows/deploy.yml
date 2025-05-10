@@ -11,6 +11,11 @@ on:
     branches: [ "master" ]
   pull_request:
     branches: [ "master" ]
+    paths-ignore:
+      - .github/workflows/sonarcloud.yml
+      - .github/workflows/semgrep.yml
+      - .github/workflows/dast.yml
+
 
 jobs:
   build:
