@@ -29,4 +29,12 @@ jobs:
       image: semgrep/semgrep
     steps:
     - uses: actions/checkout@v4
-    - run: semgrep ci
+    - name: Run Semgrep and output findings
+      run: semgrep ci --json > semgrep-findings.json
+    - name: Create GitHub Issue from Semgrep findings
+      if: always()
+      uses: peter-evans/create-issue-from-file@v5
+      with:
+        title: "Semgrep Findings"
+        content-filepath: semgrep-findings.json
+        labels: semgrep, security
