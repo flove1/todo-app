@@ -1,10 +1,5 @@
 name: sonarcloud
 
-permissions:
-  contents: read
-  issues: write
-
-
 on:
   workflow_dispatch:
   workflow_run:
@@ -36,25 +31,3 @@ jobs:
             -Dsonar.projectKey=flove1_todo-app
             -Dsonar.organization=flove1
           projectBaseDir: .
-      - name: Fetch SonarCloud issues and create findings file
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: |
-          PROJECT_KEY="flove1_todo-app"
-          ORGANIZATION="flove1"
-          # Fetch issues from SonarCloud API
-          curl -s -u $SONAR_TOKEN: "https://sonarcloud.io/api/issues/search?componentKeys=$PROJECT_KEY&resolved=false" > sonarcloud-issues.json
-          # Format a simple markdown summary (customize as needed)
-          echo "# SonarCloud Findings\n" > sonarcloud-findings.md
-          jq -r '.issues[] | "- [\(.severity)] \(.message) (\(.component):\(.line))"' sonarcloud-issues.json >> sonarcloud-findings.md
-          # Count issues
-          export SONAR_ISSUE_COUNT=$(jq '.issues | length' sonarcloud-issues.json)
-          echo "SONAR_ISSUE_COUNT=$SONAR_ISSUE_COUNT" >> $GITHUB_ENV
-        shell: bash
-      - name: Create GitHub Issue from SonarCloud findings
-        if: env.SONAR_ISSUE_COUNT != '0'
-        uses: peter-evans/create-issue-from-file@v5
-        with:
-          title: "SonarCloud Findings"
-          content-filepath: sonarcloud-findings.md
-          labels: sonarcloud, code-quality
