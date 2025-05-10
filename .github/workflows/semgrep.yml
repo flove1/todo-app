@@ -33,10 +33,19 @@ jobs:
     - uses: actions/checkout@v4
     - name: Run Semgrep and output findings
       run: semgrep ci --json > semgrep-findings.json
+    - name: Convert Semgrep findings to markdown
+      run: |
+        echo "# Semgrep Findings\n" > semgrep-findings.md
+        count=$(jq '.results | length' semgrep-findings.json)
+        if [ "$count" -eq 0 ]; then
+          echo "No Semgrep findings." >> semgrep-findings.md
+        else
+          jq -r '.results[] | "- [\(.extra.severity // "info")] \(.check_id): \(.path):\(.start.line) - \(.extra.message // .check_id)"' semgrep-findings.json >> semgrep-findings.md
+        fi
     - name: Create GitHub Issue from Semgrep findings
       if: always()
       uses: peter-evans/create-issue-from-file@v5
       with:
         title: "Semgrep Findings"
-        content-filepath: semgrep-findings.json
+        content-filepath: semgrep-findings.md
         labels: semgrep, security
