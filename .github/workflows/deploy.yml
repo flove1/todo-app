@@ -27,6 +27,7 @@ jobs:
     - run: semgrep ci
 
   analysis:
+    environment: prod
     runs-on: ubuntu-latest
 
     steps:
