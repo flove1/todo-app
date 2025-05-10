@@ -3,6 +3,8 @@ name: owasp
 permissions:
   contents: read
   issues: write
+  pull-requests: write
+  actions: read
 
 on:
   workflow_dispatch:
