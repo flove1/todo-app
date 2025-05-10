@@ -32,15 +32,15 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Run Semgrep and output findings
-      run: semgrep ci --exclude test --exclude '**/*.test.*' --exclude '**/*.spec.*' --severity CRITICAL,HIGH --json > semgrep-findings.json
+      run: semgrep ci --exclude test --exclude '**/*.test.*' --exclude '**/*.spec.*' --json > semgrep-findings.json
     - name: Convert Semgrep findings to markdown
       run: |
         echo "# Semgrep Findings\n" > semgrep-findings.md
-        count=$(jq '.results | length' semgrep-findings.json)
+        count=$(jq '[.results[] | select(.extra.severity == "CRITICAL" or .extra.severity == "HIGH")] | length' semgrep-findings.json)
         if [ "$count" -eq 0 ]; then
           echo "No Semgrep findings." >> semgrep-findings.md
         else
-          jq -r '.results[] | "- [\(.extra.severity // "info")] \(.check_id): \(.path):\(.start.line) - \(.extra.message // .check_id)"' semgrep-findings.json >> semgrep-findings.md
+          jq -r '.results[] | select(.extra.severity == "CRITICAL" or .extra.severity == "HIGH") | "- [\(.extra.severity)] \(.check_id): \(.path):\(.start.line) - \(.extra.message // .check_id)"' semgrep-findings.json >> semgrep-findings.md
         fi
     - name: Create GitHub Issue from Semgrep findings
       if: always()

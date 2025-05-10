@@ -30,7 +30,7 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         with:
           args:
-            -Dsonar.projectKey=flove1_todo-appZ
+            -Dsonar.projectKey=flove1_todo-app
             -Dsonar.organization=flove1
             -Dsonar.sources=src
             -Dsonar.exclusions=**/test/**,**/*.test.*,**/*.spec.*
