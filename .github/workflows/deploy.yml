@@ -11,32 +11,9 @@ on:
     branches: [ "master" ]
 
 jobs:
-  SAST:
-    name: Static Application Security Testing (SAST)
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Initialize CodeQL
-        uses: github/codeql-action/init@v3
-        with:
-          languages: javascript
-
-      - name: Autobuild
-        uses: github/codeql-action/autobuild@v3
-
-      - name: Perform CodeQL Analysis
-        uses: github/codeql-action/analyze@v3
-
-      - name: Run Semgrep
-        uses: returntocorp/semgrep-action@v1
-        with:
-          config: "auto"
-
   build:
     name: Build & Push Docker Image
-    needs: SAST
+    needs: semgrep
     runs-on: self-hosted
 
     steps:
