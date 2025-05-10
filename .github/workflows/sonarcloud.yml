@@ -1,0 +1,33 @@
+name: sonarcloud
+
+on:
+  workflow_dispatch:
+  workflow_run:
+    workflows: ["CI/CD"]
+    types:
+      - completed
+  push:
+    branches: [ "master" ]
+    paths:
+    - .github/workflows/sonarcloud.yml
+  pull_request:
+    branches: [ "master" ]
+    paths:
+    - .github/workflows/sonarcloud.yml
+  schedule:
+  - cron: 0 0 * * *
+
+jobs:
+  sonarcloud:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Analyze with SonarCloud
+        uses: SonarSource/sonarcloud-github-action@4006f663ecaf1f8093e8e4abb9227f6041f52216
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        with:
+          args:
+            -Dsonar.projectKey=flove1_todo-app
+            -Dsonar.organization=flove1
+          projectBaseDir: .
