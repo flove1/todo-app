@@ -14,6 +14,9 @@ services:
       replicas: 1
       restart_policy:
         condition: on-failure
+      placement:
+        constraints:
+          - node.hostname != manager
 
   app:
     image: ghcr.io/flove1/todo:latest
@@ -29,6 +32,10 @@ services:
       replicas: 1
       restart_policy:
         condition: on-failure
+      placement:
+        constraints:
+          - node.hostname != manager
+
 
 networks:
   app-network:
