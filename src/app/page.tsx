@@ -41,7 +41,7 @@ export default function LandingPage() {
       >
         <Container>
           <Typography variant="h2" gutterBottom sx={{ fontWeight: "bold" }}>
-            Welcome to the NextJS To-Do App
+            Welcome to the 
           </Typography>
           <Typography variant="h6" gutterBottom>
             Organize your tasks, increase your productivity, and manage your
