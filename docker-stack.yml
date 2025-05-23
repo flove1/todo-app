@@ -16,7 +16,7 @@ services:
         condition: on-failure
       placement:
         constraints:
-          - node.hostname != manager
+          - node.hostname == manager
 
   app:
     image: ghcr.io/flove1/todo:latest

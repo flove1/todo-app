@@ -63,7 +63,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
           user={user}
           logout={logout}
         />
-        <Box component="main" sx={{ flexGrow: 1 }}>
+        <Box component="main" sx={{ flexGrow: 1, display: "flex" }}>
           {children}
         </Box>
         <Footer />

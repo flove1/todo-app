@@ -31,17 +31,17 @@ export default function LandingPage() {
           flexGrow: 1,
           display: "flex",
           justifyContent: "center",
+          justifySelf: "center",
           alignItems: "center",
           textAlign: "center",
           padding: "50px 20px",
-          backgroundColor: isDarkMode ? "#222" : "#e8e8e8",
           color: isDarkMode ? "#fff" : "#000",
           transition: "all 0.3s ease",
         }}
       >
         <Container>
           <Typography variant="h2" gutterBottom sx={{ fontWeight: "bold" }}>
-            Welcome to the 
+            Welcome to the
           </Typography>
           <Typography variant="h6" gutterBottom>
             Organize your tasks, increase your productivity, and manage your
